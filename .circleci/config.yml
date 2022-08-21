@@ -106,7 +106,7 @@ jobs:
       - restore_cache:
           keys: [frontend-depend]
       - run:
-          name: front-end analyze
+            name: front-end scan
           command: |
              cd frontend
              npm install
@@ -121,7 +121,7 @@ jobs:
       - restore_cache:
           keys: [backend-depend]
       - run:
-          name: back-end analyze
+          name: back-end scan
           command: |
              cd backend
              npm install
@@ -302,11 +302,11 @@ workflows:
       - test-frontend:
           requires: [build-frontend]
       - test-backend:
-          requires: [build-backend]
+          requires: [build-backend]  
       - scan-backend:
-          requires: [test-backend]
+          requires: [test-backend] #in case needed to run scan and test parallel we can make them depend on build-backend both
       - scan-frontend:
-          requires: [test-frontend]
+          requires: [test-frontend] #in case needed to run scan and test parallel we can make them depend on build-frontend both
       # - deploy-infrastructure:
       #     requires: [test-frontend, test-backend, scan-frontend, scan-backend]
       #     filters:
