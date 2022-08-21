@@ -106,13 +106,12 @@ jobs:
       - restore_cache:
           keys: [frontend-depend]
       - run:
-          name: front-end analyze
+          name: front-end scan
           command: |
              cd frontend
-             npm install
-          # npm install oauth-sign@^0.9.0   
+             npm install  
              npm audit --audit-level=critical
-
+             
   scan-backend:
     docker:
       - image: cimg/node:13.8.0
@@ -121,11 +120,10 @@ jobs:
       - restore_cache:
           keys: [backend-depend]
       - run:
-          name: back-end analyze
+          name: back-end scan
           command: |
              cd backend
-             npm install
-          # npm install oauth-sign@^0.9.0   
+             npm install  
              npm audit --audit-level=critical
 
 #   deploy-infrastructure:
