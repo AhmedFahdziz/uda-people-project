@@ -330,9 +330,9 @@ workflows:
       - test-backend:
           requires: [build-backend]  
       - scan-backend:
-          requires: [test-backend] #in case needed to run scan and test parallel we can make them depend on build-backend both
+          requires: [build-backend] #in case needed to run scan and test parallel we can make them depend on build-backend both
       - scan-frontend:
-          requires: [test-frontend] #in case needed to run scan and test parallel we can make them depend on build-frontend both
+          requires: [build-frontend] #in case needed to run scan and test parallel we can make them depend on build-frontend both
       - deploy-infrastructure:
           requires: [test-frontend, test-backend, scan-frontend, scan-backend]
           filters:
