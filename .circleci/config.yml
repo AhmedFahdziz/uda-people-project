@@ -177,7 +177,7 @@ jobs:
           name: Add back-end ip to ansible inventory
           command: |
             BACKEND_PUBLIC_IP=$(aws ec2 describe-instances \
-              --filter "Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --filter "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --query 'Reservations[*].publicIpAddress' \
               --output text)
             echo $BACKEND_PUBLIC_IP >> .circleci/ansible/inventory.txt
@@ -325,14 +325,14 @@ workflows:
     jobs:
       - build-frontend
       - build-backend
-      - test-frontend:
-          requires: [build-frontend]
-      - test-backend:
-          requires: [build-backend]  
-      - scan-backend:
-          requires: [build-backend] #in case needed to run scan and test parallel we can make them depend on build-backend both
-      - scan-frontend:
-          requires: [build-frontend] #in case needed to run scan and test parallel we can make them depend on build-frontend both
+      # - test-frontend:
+      #     requires: [build-frontend]
+      # - test-backend:
+      #     requires: [build-backend]  
+      # - scan-backend:
+      #     requires: [build-backend] #in case needed to run scan and test parallel we can make them depend on build-backend both
+      # - scan-frontend:
+      #     requires: [build-frontend] #in case needed to run scan and test parallel we can make them depend on build-frontend both
       - deploy-infrastructure:
           requires: [build-backend] #[test-frontend, test-backend, scan-frontend, scan-backend]
           filters:
