@@ -20,7 +20,7 @@ commands:
             sudo apt install software-properties-common
             sudo add-apt-repository --yes --update ppa:ansible/ansible
             sudo apt install ansible  
-  destroy-environment:
+  destroy-enviroment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
     parameters:
       workflow_ID:
@@ -28,7 +28,7 @@ commands:
         default: ${CIRCLE_WORKFLOW_ID:0:7}    
     steps:
       - run:
-          name: Destroy environments
+          name: Destroy enviroments
           when: on_fail
           command: |
             aws cloudformation delete-stack --stack-name udapeople-backend-<<parameters.workflow_id>>
@@ -191,7 +191,7 @@ jobs:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt
-      - destroy_environment      
+      - destroy_enviroment      
 
   configure-infrastructure:
     docker:
