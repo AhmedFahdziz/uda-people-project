@@ -12,9 +12,7 @@
 - name: "Installing Node Dependencies"
   shell: |
     cd ~/backend-app
-    curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -sudo apt install -y nodejs
-    sudo npm install --global n
-    sudo n 13.8.0
+    npm i
 - name: "Executing Node app with PM2"
   shell: |
     cd ~/backend-app/dist
