@@ -4,16 +4,10 @@
     path: ~/backend-app
     state: directory
 
-- name: "Copy compiled backend app"
-  copy:
-    src: dist.zip
-    dest: "~/backend-app/dist.zip"
-
-- name: "Unzip backend files to correct directory"
-  shell: |
-    cd ~/backend-app
-    unzip dist.zip
-    rm -rf dist.zip
+- name: "Unarchive backend files"
+  unarchive:
+    src: artifact.tar.gz
+    dest: ~/backend-app
 
 - name: "Installing Node Dependencies"
   shell: |
@@ -28,6 +22,7 @@
   shell: |
     export
     cd ~/backend-app
+    npm install pm2 -g
     pm2 stop default
     pm2 start main.js
   
