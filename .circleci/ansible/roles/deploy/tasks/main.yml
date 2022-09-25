@@ -19,7 +19,6 @@
     sudo n 13.8.0
 
 - name: "Executing Node app with PM2"
-  become: yes
   shell: |
     export
     cd ~/backend-app
