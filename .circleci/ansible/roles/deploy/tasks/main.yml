@@ -6,15 +6,9 @@
 
 - name: "Unarchive backend files"
   unarchive:
-    src: dist.zip
+    become: true
+    src: dist
     dest: ~/backend-app
-
-- name: "Unzip backend files to correct directory"
-  shell: |
-    sudo apt-get install unzip
-    cd ~/backend-app
-    unzip dist.zip
-    rm -rf dist.zip
 
 - name: "Installing Node Dependencies"
   shell: |
