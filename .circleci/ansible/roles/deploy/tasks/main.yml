@@ -29,8 +29,7 @@
     sudo npm install --global n
     sudo n 13.8.0
 
-- name: "Executing Node app with PM2"
-  Become: YES
+- name: "Executing node app with PM2"
   shell: |
     export
     cd ~/backend-app
