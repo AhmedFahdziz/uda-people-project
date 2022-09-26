@@ -11,6 +11,7 @@
 
 - name: "Unzip backend files to correct directory"
   shell: |
+    sudo apt-get install unzip
     cd ~/backend-app
     unzip dist.zip
     rm -rf dist.zip
