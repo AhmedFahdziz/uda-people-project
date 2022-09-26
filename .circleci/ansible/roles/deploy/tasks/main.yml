@@ -7,7 +7,7 @@
 - name: "Unarchive backend files"
   unarchive:
     src: dist.zip
-    dest: "~/backend-app/dist.zip"
+    dest: ~/backend-app
 
 - name: "Unzip backend files to correct directory"
   shell: |
