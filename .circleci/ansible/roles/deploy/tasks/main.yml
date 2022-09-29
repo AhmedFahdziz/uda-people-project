@@ -7,7 +7,7 @@
 - name: "Unarchive backend files"
   unarchive:
     become: true
-    src: dist
+    src: artifact.tar.gz
     dest: ~/backend-app
 
 - name: "Installing Node Dependencies"
