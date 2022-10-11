@@ -4,14 +4,16 @@
     path: ~/backend-app
     state: directory
 
-- name: "Unarchive backend files"
-  unarchive:
-    ansible.builtin.unarchive:
-    src: artifact.tar.gz
-    dest: ~/backend-app
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
-    mode: "0777" 
+- name: "Copy compiled backend app"
+  copy:
+    src: dist.zip
+    dest: "~/backend-app/dist.zip"
+
+- name: "Unzip backend files to correct directory"
+  shell: |
+    cd ~/backend-app
+    unzip dist.zip
+    rm -rf dist.zip
 
 - name: "Installing Node Dependencies"
   shell: |
