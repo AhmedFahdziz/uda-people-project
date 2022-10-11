@@ -6,9 +6,12 @@
 
 - name: "Unarchive backend files"
   unarchive:
-    become: true
+    become: yes
     src: artifact.tar.gz
     dest: ~/backend-app
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0777" 
 
 - name: "Installing Node Dependencies"
   shell: |
