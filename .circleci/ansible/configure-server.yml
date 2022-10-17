@@ -21,13 +21,6 @@
       become: true
       raw: test -e /usr/bin/python3 || (apt -y update && apt install -y python3)
       changed_when: false
-    
-    - name: "install pm2 global"
-      npm:
-         name: pm2
-         global: yes
-         production: yes
-         state: present
 
     - setup:
 
