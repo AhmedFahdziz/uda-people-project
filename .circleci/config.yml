@@ -29,9 +29,7 @@ commands:
               # Install Node.js LTS version as our base Node.js version
               curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
               sudo apt install -y nodejs
-              # Use n version manager to use Node.js v13.8.0
-              sudo npm install --global n
-              sudo n 13.8.0
+              
   destroy_enviroment:
     description: Destroy backend and frontend cloudformation stacks given a workflow ID.
     parameters:
@@ -208,10 +206,11 @@ jobs:
 
   configure-infrastructure:
     docker:
-      - image: cimg/base:stable
+      - image: cimg/base:2022.04
     steps:
       - checkout
       - install_ansible
+      - install_awscli
       - add_ssh_keys:
           fingerprints:
             - "bd:b1:64:ad:29:c8:f3:28:41:49:fa:28:7c:79:4c:54"
@@ -253,7 +252,7 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: cimg/base:stable
+      - image: cimg/base:2022.04
     steps:
       - checkout
       - install_awscli
@@ -278,13 +277,14 @@ jobs:
           name: Deploy frontend objects
           command: |
             cd frontend
+            npm install
             npm run build
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive     
       - destroy_enviroment
       - revert-migrations              
   deploy-backend:
     docker:
-      - image: python:3.9.1-alpine3.12
+      - image: cimg/base:2022.04
     steps:
       - checkout
       - install_awscli
@@ -306,9 +306,10 @@ jobs:
           name: package backend
           command: |
             cd backend
+            npm i
             npm run build
-            tar -czf artifact.tar.gz dist/* package*
-            cd ..
+            cd ../
+            tar -czf artifact.tar.gz backend dist/*
             cp backend/artifact.tar.gz .circleci/ansible/roles/deploy/files
       - run:
           name: Deploy backend
