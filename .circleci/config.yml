@@ -301,15 +301,14 @@ jobs:
           name: Install dependencies
           command: |
             cd backend
-            npm install
+            npm install --force
       - run:
           name: package backend
           command: |
             cd backend
-            npm i
             npm run build
-            cd ../
-            tar -czf artifact.tar.gz backend dist/*
+            tar -czf artifact.tar.gz dist/* package*
+            cd ..
             cp backend/artifact.tar.gz .circleci/ansible/roles/deploy/files
       - run:
           name: Deploy backend
