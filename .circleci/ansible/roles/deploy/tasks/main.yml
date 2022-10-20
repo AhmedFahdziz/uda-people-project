@@ -19,10 +19,16 @@
     sudo n 13.8.0
     npm i
 
+- name: "Install PM2 Globally"
+  npm:
+    name: pm2
+    global: yes
+
 - name: "Executing node app with PM2"
   shell: |
     export
-    cd ~/backend-app
+    cd ~/backend-app/dist
+    pm2 stop default
     pm2 start main.js
   
   register: execute_node
