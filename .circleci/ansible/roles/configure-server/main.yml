@@ -1,4 +1,11 @@
 ---
+- name: "installing npm"
+  become: true
+  apt:
+    name: npm
+    update_cache: yes
+    state: latest
+
 - name: "Install Node.js 13"
   become: true
   shell: |
@@ -9,11 +16,14 @@
     sudo npm install --global n
     sudo n 13.8.0
 
-- name: "Install PM2 Globally"
+- name: "installing pm2"
+  become: true
   npm:
     name: pm2
     global: yes
-    
+    production: yes
+    state: present
+
 - name: "Install zip utility."
   apt:
     name: [ "zip", "unzip" ]

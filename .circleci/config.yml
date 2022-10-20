@@ -284,7 +284,7 @@ jobs:
       - revert-migrations              
   deploy-backend:
     docker:
-      - image: cimg/base:stable
+      - image: python:3.9.1-alpine3.12
     steps:
       - checkout
       - install_awscli
